@@ -1,37 +1,13 @@
--- Criar banco de dados
-CREATE DATABASE db_aula;
--- Especificando qual banco de dados será utilizado
-USE db_aula;
--- Deletar banco de dados
- DROP DATABASE TESTE;
- /* Criação de uma tabela
- A tabela terá os campos de:
- - Nome >> texto
- - Email >> texto
- - Idade >> inteiro
- */
- CREATE TABLE tb_pessoas (
-   nome VARCHAR(100),
-   email VARCHAR(100),
-   idade INT
- );
- -- Alterando a tabela para adicionar uma coluna 
- ALTER TABLE tb_pessoas
- ADD telefone VARCHAR(20);
- -- Inserindo registros na tabela
- INSERT INTO tb_pessoas (nome, email, telefone, idade)
- VALUE ('Gabriel', 'gabriel@lindo.com', '(11)98746-3523', '23');
- -- Inserindo mais de um registro na tabela
-INSERT INTO tb_pessoas (nome, email, telefone, idade)
-VALUES 
-    ('Jorgin', 'MENNNMUNM@lindo.com', '(11)98546-3523', '23'),
-    ('Maria', 'MAMAMAMA@lindo.com', '(11)92746-3523', '22'),
-    ('Mauricio', 'MAU@lindo.com', '(11)98746-3513', '25'),
-    ('Edon', 'Edson@lindo.com', '(11)98646-3523', '21');
--- Selecionar os registros
 SELECT * FROM tb_pessoas;
-SELECT nome, idade FROM tb_pessoas;
--------
+
+UPDATE tb_pessoas SET sexo = 'Masculino';
+
+SELECT tb_pessoas.nome,
+    tb_pessoas.email,
+    tb_pessoas.idade,
+    tb_pessoas.telefone,
+    tb_pessoas.sexo
+FROM db_aula.tb_pessoas;
 
 DROP TABLE IF EXISTS tb_pessoas;
 
@@ -132,3 +108,27 @@ INSERT INTO tb_pessoas (nome,idade,cpf,rg,nasc,genero,celular,altura,peso) VALUE
 ('Sebastião Osvaldo Igor Assunção', '24', '330.552.038-87', '41.361.181-4', '1997-10-06', 'Masculino', '(11) 98923-5143', 1.72, 67),
 ('Manuela Clarice Gabriela Assunção', '24', '060.823.238-66', '48.700.597-1', '1997-11-25', 'Feminino', '(15) 99873-4381', 1.74, 68),
 ('Helena Ester Mirella Castro', '20', '717.391.908-82', '45.225.771-2', '2001-11-02', 'Feminino', '(11) 99605-4014', 1.52, 47);
+-- Selecionar os dados da tabela
+SELECT * FROM tb_pessoas;
+-- Filtros >> CLÁUSULA WHERE
+SELECT * FROM tb_pessoas WHERE nome = 'Laura Josefa Isadora Santos';
+SELECT * FROM tb_pessoas where nome > 'A' AND nome < 'C';
+SELECT * FROM tb_pessoas WHERE nome BETWEEN 'A' AND 'C';
+SELECT * FROM tb_pessoas WHERE nome LIKE '%Laura%';
+SELECT * FROM tb_pessoas WHERE nome NOT LIKE '%Laura%';
+SELECT * FROM tb_pessoas WHERE genero = 'Feminino';
+SELECT * FROM tb_pessoas WHERE nome LIKE 'L%' OR nome LIKE 'C%';
+
+-- Fórmula para contar 
+SELECT COUNT(*) FROM tb_pessoas;
+SELECT COUNT(*) FROM tb_pessoas WHERE genero = 'Masculino';
+-- Selecionar valores distintos
+SELECT DISTINCT genero FROM tb_pessoas;
+-- Selecionar determinada coluna e um opração matemática
+SELECT nome, idade, idade+1 FROM tb_pessoas; 
+-- Médias
+SELECT AVG(idade) FROM tb_pessoas;
+-- Ordenar de forma ascendente(ASC) ou decrescente(DESC)
+SELECT * FROM tb_pessoas WHERE idade >= 20 AND idade < 30 ORDER BY idade ASC
+
+
